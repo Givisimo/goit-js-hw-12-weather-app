@@ -9,9 +9,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://givisimo.github.io/goit-js-hw-12-weather-app",
+  "homepage": "https://givisimo.github.io/goit-js-hw-12-weather-app/",
   "keywords": [],
-  "author": "Denys Plientikov <givisomo@gmail.com>",
+  "author": "Denys Plientikov <givisimo@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.5",
