@@ -45,7 +45,8 @@ function handleClick(event) {
 
 getGeoPosition()
   .then(location => {
-    fetchWeather(
+        searchForm.addEventListener('submit', handleClick);
+        fetchWeather(
       `${location.coords.latitude},${location.coords.longitude}`,
     ).then(weather => {
       markup(weather);
