@@ -9,12 +9,12 @@ import PNotify from 'pnotify/dist/es/PNotify.js';
 import PNotifyButtons from 'pnotify/dist/es/PNotifyButtons.js';
 PNotify.defaults.delay -= 6000;
 const optionsPNotify = {
-  text: "Нет прав доступа к геопозиции, используйте поиск по имени города!",
+  text: 'Нет прав доступа к геопозиции, используйте поиск по имени города!',
   context: document.getElementById('search-form'),
   stack: {
-    'dir1': 'down',
-    'firstpos1': 25
-  }
+    dir1: 'down',
+    firstpos1: 25,
+  },
 };
 
 const weatherWrapper = document.querySelector('#weather');
@@ -38,21 +38,25 @@ function markup(weather) {
 
 function handleClick(event) {
   event.preventDefault();
-  fetchWeather(event.currentTarget.elements.city.value).then(weather => {
-    markup(weather);
-  });
+  fetchWeather(event.currentTarget.elements.city.value)
+    .then(weather => {
+      markup(weather);
+    }).catch(er=> {
+    optionsPNotify.text = 'К сожалению, населенного пункта с таким названием не обнаружено!';
+      PNotify.info(optionsPNotify)});
 }
 
 getGeoPosition()
   .then(location => {
-        searchForm.addEventListener('submit', handleClick);
-        fetchWeather(
+    fetchWeather(
       `${location.coords.latitude},${location.coords.longitude}`,
     ).then(weather => {
       markup(weather);
     });
   })
-  .catch(() => {
+  .catch(error => {
     PNotify.info(optionsPNotify);
     searchForm.addEventListener('submit', handleClick);
   });
+
+searchForm.addEventListener('submit', handleClick);
